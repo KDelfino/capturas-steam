@@ -62,3 +62,31 @@ async function setQuadrados() {
 }
 
 setQuadrados();
+
+// ------------------------------
+
+async function preencherCards() {
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (data.response && data.response.publishedfiledetails.length > 0) {
+    const captures = data.response.publishedfiledetails;
+    const cardsContainer = document.getElementById('cards');
+    cardsContainer.innerHTML = ""; // Limpa os cards antigos
+
+    captures.forEach(captura => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${captura.file_url || captura.preview_url || ''}" alt="">
+        <div class="info-screen">
+          <h3>${captura.app_name || 'Nome do jogo'}</h3>
+          <p>${captura.short_description || 'Sem descrição.'}</p>
+        </div>
+      `;
+      cardsContainer.appendChild(card);
+    });
+  }
+}
+
+preencherCards();
