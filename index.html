@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capturas</title>
     <link rel="stylesheet" type="text/css" href="stylesheet/main.css">
-    <script type="text/javascript" src="javascript/event.js"></script>
+    <script type="text/javascript" src="javascript/event.js" defer></script>
     
 </head>
 <body>
@@ -112,14 +112,18 @@
   </div>
   </section>
 
-  <section id="cards">
-    <div class="card">
-        <img id="imagemCard" src="" alt="">
-        <div class="info-screen">
-            <h3 id="tituloCard"></h3>
-        <p id="descricaoCard"></p>
-        </div>
+  
+
+<div id="cards"></div>
+  <div id="card-modal" class="card-modal" style="display:none;">
+    <div class="card card-ampliada">
+      <img id="modalImagem" src="" alt="">
+      <div class="info-screen">
+        <h3 id="modalTitulo"></h3>
+        <p id="modalDescricao"></p>
+      </div>
+      
     </div>
-  </section>
+  </div>
 </body>
 </html>

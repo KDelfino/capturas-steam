@@ -105,11 +105,69 @@ async function preencherCards() {
           <p>${captura.short_description || 'Sem descrição.'}</p>
         </div>
       `;
+      // Efeito tilt
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const midX = rect.width / 2;
+        const midY = rect.height / 2;
+        const rotateX = ((y - midY) / midY) * 10;
+        const rotateY = ((x - midX) / midX) * 10;
+        card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+        card.classList.add('is-tilting');
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.classList.remove('is-tilting');
+      });
+      // Modal ao clicar
+      card.addEventListener('click', () => {
+        console.log('Card clicado!');
+        document.getElementById('modalImagem').src = captura.file_url || captura.preview_url || '';
+        document.getElementById('modalTitulo').textContent = captura.app_name || 'Nome do jogo';
+        document.getElementById('modalDescricao').textContent = captura.short_description || 'Sem descrição.';
+        document.getElementById('card-modal').style.display = 'flex';
+        addTiltToModalCard(); // Adiciona tilt ao card ampliado
+      });
       cardsContainer.appendChild(card);
     });
-
-    addCardTiltEffect(); // Adiciona o efeito nos novos cards
   }
+
+  // Fechar modal
+  const fecharBtn = document.getElementById('fecharModal');
+  if (fecharBtn) {
+    fecharBtn.onclick = () => {
+      document.getElementById('card-modal').style.display = 'none';
+    };
+  }
+
+  document.getElementById('card-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.style.display = 'none';
+    }
+  });
 }
 
 preencherCards();
+
+function addTiltToModalCard() {
+  const modalCard = document.querySelector('.card-ampliada');
+  if (!modalCard) return;
+  modalCard.addEventListener('mousemove', e => {
+    const rect = modalCard.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const midX = rect.width / 2;
+    const midY = rect.height / 2;
+    const rotateX = ((y - midY) / midY) * 10;
+    const rotateY = ((x - midX) / midX) * 10;
+    modalCard.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.08)`;
+    modalCard.classList.add('is-tilting');
+  });
+  modalCard.addEventListener('mouseleave', () => {
+    modalCard.style.transform = 'scale(1.08)';
+    modalCard.classList.remove('is-tilting');
+  });
+}
+
