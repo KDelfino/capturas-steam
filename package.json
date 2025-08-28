@@ -1,0 +1,24 @@
+{
+  "name": "capturas-steam",
+  "version": "1.0.0",
+  "description": "Página Web para poder visualizar capturas da steam",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KDelfino/capturas-steam.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KDelfino/capturas-steam/issues"
+  },
+  "homepage": "https://github.com/KDelfino/capturas-steam#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
+  }
+}
