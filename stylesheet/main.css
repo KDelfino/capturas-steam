@@ -44,9 +44,7 @@
   transform: scale(1.08);
 }
 
-/* #modalImagem{
-  width: 800px;
-} */
+
 
 :root {
   font-family: 'PixelText', serif;
@@ -90,6 +88,14 @@
     height: 450px;
     background-color: #8860C5;
 
+}
+
+.card h3{
+  background-color: black;
+}
+
+.card p {
+  background-color: blue;
 }
 
 .card img{

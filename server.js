@@ -12,7 +12,7 @@ const API_KEY = "";
 app.get("/screenshots/:steamid", async (req, res) => {
   const steamId = req.params.steamid;
   // Adicione numperpage=30 para pegar até 30 screenshots
-  const url = `https://api.steampowered.com/IPublishedFileService/GetUserFiles/v1/?key=${API_KEY}&steamid=${steamId}&filetype=4&numperpage=30`;
+  const url = `https://api.steampowered.com/IPublishedFileService/GetUserFiles/v1/?key=${API_KEY}&steamid=${steamId}&filetype=4&numperpage=100`;
 
   try {
     const response = await fetch(url);
