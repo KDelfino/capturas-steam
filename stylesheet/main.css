@@ -12,6 +12,17 @@
   src: url(https://assets.codepen.io/36869/Grand9KPixel.ttf);
 }
 
+.card {
+  /* ...existing code... */
+  transition: transform 0.2s cubic-bezier(.03,.98,.52,.99), box-shadow 0.2s;
+  will-change: transform;
+  perspective: 1000px;
+}
+
+.card.is-tilting {
+  box-shadow: 0 32px 64px rgba(0,0,0,0.25), 0 0 0 4px #8E4CF0;
+}
+
 :root {
   font-family: 'PixelText', serif;
   font-optical-sizing: auto;

@@ -65,6 +65,27 @@ setQuadrados();
 
 // ------------------------------
 
+function addCardTiltEffect() {
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const midX = rect.width / 2;
+      const midY = rect.height / 2;
+      const rotateX = ((y - midY) / midY) * 10;
+      const rotateY = ((x - midX) / midX) * 10;
+      card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+      card.classList.add('is-tilting');
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.classList.remove('is-tilting');
+    });
+  });
+}
+
+// Chame após preencherCards
 async function preencherCards() {
   const res = await fetch(url);
   const data = await res.json();
@@ -72,7 +93,7 @@ async function preencherCards() {
   if (data.response && data.response.publishedfiledetails.length > 0) {
     const captures = data.response.publishedfiledetails;
     const cardsContainer = document.getElementById('cards');
-    cardsContainer.innerHTML = ""; // Limpa os cards antigos
+    cardsContainer.innerHTML = "";
 
     captures.forEach(captura => {
       const card = document.createElement('div');
@@ -86,6 +107,8 @@ async function preencherCards() {
       `;
       cardsContainer.appendChild(card);
     });
+
+    addCardTiltEffect(); // Adiciona o efeito nos novos cards
   }
 }
 
