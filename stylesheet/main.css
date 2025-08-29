@@ -90,8 +90,10 @@
 
 .card:hover, .card:focus {
   transform: scale(1.06) rotateZ(-2deg);
-  box-shadow: 0 0 32px 8px #8E4CF0, 0 0 24px 4px #fca400;
+  box-shadow: 0 0 32px 8px #8E4CF0, 0 0 24px 4px #8860C5;
 }
+
+
 
 .card:hover::before, .card:focus::before {
   opacity: 0.8;
