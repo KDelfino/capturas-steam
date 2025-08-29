@@ -6,7 +6,8 @@
     <title>Capturas</title>
     <link rel="stylesheet" type="text/css" href="stylesheet/main.css">
     <script type="text/javascript" src="javascript/event.js" defer></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 </head>
 <body>
     <section id="inicio">
@@ -117,9 +118,10 @@
 <div id="cards"></div>
   <div id="card-modal" class="card-modal" style="display:none;">
     <div class="card card-ampliada">
+      <h3 id="modalTitulo"></h3>
       <img id="modalImagem" src="" alt="">
       <div class="info-screen">
-        <h3 id="modalTitulo"></h3>
+        
         <p id="modalDescricao"></p>
       </div>
       

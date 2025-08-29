@@ -7,6 +7,42 @@
 #282133
  */
 
+:root {
+  font-family: 'PixelText', serif;
+  font-optical-sizing: auto;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+
+  /* sprite image */
+  --sprite-image: url(https://assets.codepen.io/36869/book.webp);
+
+  /* sprite animation settings */
+  /* animation duration */
+  --sprite-as: .8s;
+  /* animation direction */
+  --sprite-ad: normal;
+  /* animation fill mode */
+  --sprite-af: none;
+  /* animation play state */
+  --sprite-ap: running;
+  /* animation iteration count */
+  --sprite-ai: infinite;
+  /* animation timing function */
+  --sprite-at: linear;
+  /* animation frame rate */
+  --sprite-fr: 12;
+}
+
 @font-face {
   font-family: PixelText;
   src: url(https://assets.codepen.io/36869/Grand9KPixel.ttf);
@@ -99,43 +135,6 @@
 }
 
 
-
-:root {
-  font-family: 'PixelText', serif;
-  font-optical-sizing: auto;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  
-
-  /* sprite image */
-  --sprite-image: url(https://assets.codepen.io/36869/book.webp);
-
-  /* sprite animation settings */
-  /* animation duration */
-  --sprite-as: .8s;
-  /* animation direction */
-  --sprite-ad: normal;
-  /* animation fill mode */
-  --sprite-af: none;
-  /* animation play state */
-  --sprite-ap: running;
-  /* animation iteration count */
-  --sprite-ai: infinite;
-  /* animation timing function */
-  --sprite-at: linear;
-  /* animation frame rate */
-  --sprite-fr: 12;
-}
-
 .card.holo {
   position: relative;
   overflow: hidden;
@@ -181,11 +180,13 @@
 }
 
 .card h3{
-  background-color: black;
+  
+background-image: radial-gradient(circle,rgba(142, 76, 240, 1) 0%, rgba(62, 57, 70, 1) 100%);
+text-align: center;
 }
 
 .card p {
-  background-color: blue;
+  color: #fff;
 }
 
 .card img{
@@ -207,15 +208,67 @@
 .card {
   flex: 1 1 350px;
   max-width: 350px;
+  border-radius: 15px;
+}
+
+.info-screen, #modalTitulo, .card h3{
+    padding: 10px;
+    margin: 0px;
 }
 
 .info-screen{
-    padding: 10px;
+  background-image: radial-gradient(circle,rgba(142, 76, 240, 1) 0%, rgba(62, 57, 70, 1) 100%);
+  margin: 10px;
+  border-radius: 15px;
 }
 
 
 
+.card.fullart > img {
+  visibility: hidden;
+}
+
+.card.fullart > .info-screen {
+  background-image: radial-gradient(circle, rgba(142, 76, 240, 0.6) 0%, rgba(62, 57, 70, 0.6) 100%);
+}
+
+.card .print-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: background-color 0.2s, transform 0.2s;
+  opacity: 0; /* Começa invisível */
+}
+
+/* Mostra o botão quando o mouse está sobre o card */
+.card:hover .print-button {
+  opacity: 1;
+}
+
+.card .print-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+/* Classe temporária para esconder o botão durante a captura da imagem */
+.card.capturing .print-button {
+  display: none;
+}
+
 /* Add rounded corners to the top left and the top right corner of the image */
+
 
 
 @layer base {
