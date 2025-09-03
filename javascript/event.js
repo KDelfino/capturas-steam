@@ -1,5 +1,5 @@
 steamid = "76561198930612193"; // Exemplo de SteamID
-const url = "http://localhost:3000/screenshots/steamid".replace("steamid", steamid);
+const url = "/api/screenshots/steamid".replace("steamid", steamid);
 
 async function preencherCarrossel() {
   const res = await fetch(url);
