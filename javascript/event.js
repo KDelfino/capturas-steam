@@ -81,8 +81,8 @@ async function preencherCards() {
     captures.forEach((captura, idx) => {
       const card = document.createElement('div');
       // Sorteia 30% dos cards para serem holo e 30% para serem fullart
-      const isHolo = Math.random() < 0.3;
-      const isFullArt = Math.random() < 0.3;
+      const isHolo = Math.random() < 0.4;
+      const isFullArt = Math.random() < 0.4;
 
       card.className = 'card' + (isHolo ? ' holo' : '') + (isFullArt ? ' fullart' : '');
 

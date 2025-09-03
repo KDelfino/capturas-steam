@@ -6,7 +6,7 @@ const app = express();
 const PORT = 3000;
 
 // coloque aqui sua chave da Steam
-const API_KEY = "";
+const API_KEY = "6F141FC911E44BA6D459690C740AAEB0";
 
 
 app.get("/screenshots/:steamid", async (req, res) => {
