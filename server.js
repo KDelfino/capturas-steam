@@ -1,18 +1,25 @@
-const express = require("express");
-const fetch = require("node-fetch");
-const serverless = require("serverless-http");
+// server.js
+import express from "express";
+import fetch from "node-fetch"; 
 
 const app = express();
+const PORT = 3000;
+
+// coloque aqui sua chave da Steam
+const API_KEY = "";
+
 
 app.get("/screenshots/:steamid", async (req, res) => {
-  const { steamid } = req.params;
-  const API_KEY = process.env.STEAM_API_KEY;
-
-  const url = `https://api.steampowered.com/IPublishedFileService/GetUserFiles/v1/?key=${API_KEY}&steamid=${steamid}&filetype=4&numperpage=100`;
+  const steamId = req.params.steamid;
+  // Adicione numperpage=30 para pegar até 30 screenshots
+  const url = `https://api.steampowered.com/IPublishedFileService/GetUserFiles/v1/?key=${API_KEY}&steamid=${steamId}&filetype=4&numperpage=100`;
 
   try {
     const response = await fetch(url);
     const data = await response.json();
+
+   
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.json(data);
   } catch (err) {
     console.error(err);
@@ -20,4 +27,6 @@ app.get("/screenshots/:steamid", async (req, res) => {
   }
 });
 
-module.exports.handler = serverless(app); // Vercel precisa do handler exportado
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
+});
