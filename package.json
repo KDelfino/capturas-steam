@@ -2,7 +2,7 @@
   "name": "capturas-steam",
   "version": "1.0.0",
   "description": "Página Web para poder visualizar capturas da steam",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +13,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/KDelfino/capturas-steam/issues"
   },

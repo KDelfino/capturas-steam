@@ -1,3 +1,15 @@
+/* Modal SteamID */
+.steamid-modal {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(40,33,51,0.7);
+  backdrop-filter: blur(6px);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Card do Treinador */
 #cardTreinador {
   position: relative;
@@ -51,16 +63,7 @@
   word-break: break-all;
 }
 
-.steamid-modal {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(40,33,51,0.7);
-  backdrop-filter: blur(6px);
-  z-index: 10001;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 .steamid-modal-content {
   background: #282133;
   color: #fff;
@@ -429,7 +432,7 @@ text-align: center;
   box-shadow: 2px 14px 32px rgba(0,0,0,0.25);
   border-left: 20px solid transparent;
   border-right: 20px solid transparent; 
-  border-radius: 10px;
+  border-image: url('../assets/sua-borda.webp') 150 round;
 }
 
 
