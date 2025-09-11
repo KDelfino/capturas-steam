@@ -1,0 +1,457 @@
+/* Card do Treinador */
+#cardTreinador {
+  position: relative;
+  width: 350px;
+  max-width: 350px;
+  min-height: 200px;
+  background: linear-gradient(120deg, #8E4CF0 0%, #282133 100%);
+  border-radius: 15px;
+  box-shadow: 0 0 24px 4px #8E4CF0, 0 0 12px 2px #8860C5;
+  margin: 2rem auto 2rem auto;
+  padding: 1.5rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  font-family: 'PixelText', serif;
+  z-index: 2;
+}
+#cardTreinador h2 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0 0.5rem 0;
+  text-align: center;
+  background: linear-gradient(90deg, #fff 40%, #8E4CF0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+#cardTreinador img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 0 12px #8E4CF0;
+}
+#cardTreinador p {
+  background: rgba(62, 57, 70, 0.7);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0 0 0;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  word-break: break-word;
+}
+#cardTreinador a {
+  color: #000000;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.steamid-modal {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(40,33,51,0.7);
+  backdrop-filter: blur(6px);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.steamid-modal-content {
+  background: #282133;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 32px #0008;
+  padding: 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.steamid-modal-content input {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.steamid-modal-content button {
+  background: #8E4CF0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.steamid-modal-content button:hover {
+  background: #7B659B;
+}
+/* cores
+#8E4CF0
+#8860C5
+#7B659B
+#645C70
+#3E3946
+#282133
+ */
+
+:root {
+  font-family: 'PixelText', serif;
+  font-optical-sizing: auto;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: PixelText;
+  src: url(https://assets.codepen.io/36869/Grand9KPixel.ttf);
+}
+
+.card {
+  position: relative;
+  transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.2s;
+  will-change: transform, filter;
+  background-color: #040712;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0 0 16px 4px rgba(255,255,255,0.2);
+  overflow: hidden;
+}
+
+.card.holo::before, .card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: all .3s;
+  mix-blend-mode: lighten;
+  opacity: 0.5;
+}
+
+.card.holo::before {
+  background: linear-gradient(120deg, #fff2 0%, #fff8 50%, #fff2 100%);
+  z-index: 1;
+  animation: cardShine 2.5s linear infinite;
+}
+
+.card.holo:after {
+  background-image: url("https://assets.codepen.io/13471/sparkles.gif"), 
+    url("https://assets.codepen.io/13471/holo.png"),
+    linear-gradient(135deg, #8E4CF0 10%, #fca400 40%, #00cfff 80%);
+  background-size: 180%;
+  background-position: center;
+  mix-blend-mode: screen;
+  z-index: 2;
+  filter: brightness(1.1) contrast(1.2);
+  animation: cardSparkle 3s ease-in-out infinite;
+}
+
+.card:hover, .card:focus {
+  transform: scale(1.06) rotateZ(-2deg);
+  box-shadow: 0 0 32px 8px #8E4CF0, 0 0 24px 4px #8860C5;
+}
+
+
+
+.card:hover::before, .card:focus::before {
+  opacity: 0.8;
+  filter: brightness(1.2);
+}
+
+.card:hover::after, .card:focus::after {
+  opacity: 1;
+  filter: brightness(1.3) contrast(1.3);
+}
+
+@keyframes cardShine {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes cardSparkle {
+  0%, 100% { opacity: .5; background-position: center; }
+  50% { opacity: 1; background-position: 60% 40%; }
+}
+
+.card-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(40,33,51,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* bem alto */
+}
+.card-ampliada {
+  width: 1000px !important;
+  height: auto !important;
+  max-width: 95vw !important;
+  max-height: 90vh !important;
+  flex: none !important;
+  z-index: 10000; 
+  background: #8860C5;
+  transition: transform 0.2s, width 0.3s, height 0.3s;
+  transform: scale(1.08);
+}
+
+
+
+.card.holo {
+  position: relative;
+  overflow: hidden;
+}
+
+.card.holo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("https://assets.codepen.io/13471/sparkles.gif"),
+    url("https://assets.codepen.io/13471/holo.png"),
+    linear-gradient(125deg, #ff008450 15%, #fca40040 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
+  background-position: 50% 50%;
+  background-size: 160%;
+  background-blend-mode: overlay;
+  z-index: 2;
+  filter: brightness(1) contrast(1);
+  transition: all .33s ease;
+  mix-blend-mode: color-dodge;
+  opacity: .75;
+}
+
+.card.holo:hover::after,
+.card.holo.active::after {
+  filter: brightness(1) contrast(1);
+  opacity: 1;
+}
+
+@keyframes holo-brilho {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+
+.card{
+    width: 350px;
+    height: 450px;
+    background-color: #8860C5;
+
+}
+
+.card h3{
+  
+background-image: radial-gradient(circle,rgba(142, 76, 240, 1) 0%, rgba(62, 57, 70, 1) 100%);
+text-align: center;
+}
+
+.card p {
+  color: #fff;
+}
+
+.card img{
+  width: 100%;
+  padding: 10px;
+}
+
+#cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1500px;
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.card {
+  flex: 1 1 350px;
+  max-width: 350px;
+  border-radius: 15px;
+}
+
+.info-screen, #modalTitulo, .card h3{
+    padding: 10px;
+    margin: 0px;
+}
+
+.info-screen{
+  background-image: radial-gradient(circle,rgba(142, 76, 240, 1) 0%, rgba(62, 57, 70, 1) 100%);
+  margin: 10px;
+  border-radius: 15px;
+}
+
+
+
+.card.fullart > img {
+  visibility: hidden;
+}
+
+.card.fullart > .info-screen {
+  background-image: radial-gradient(circle, rgba(142, 76, 240, 0.6) 0%, rgba(62, 57, 70, 0.6) 100%);
+}
+
+.card .print-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: background-color 0.2s, transform 0.2s;
+  opacity: 0; 
+}
+
+
+.card:hover .print-button {
+  opacity: 1;
+}
+
+.card .print-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+
+.card.capturing .print-button {
+  display: none;
+}
+
+
+
+
+
+
+
+
+/* o livro carossel */
+
+  *{
+    box-sizing: border-box;
+  }
+
+  .livro {
+    display: flex;
+    margin: 0;
+    
+    
+    overflow: hidden;
+    
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+.container2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+
+
+
+#destaque {
+    max-width: max-content;
+    display: flex;
+    margin-left: 10%;
+}
+
+.titulo {
+    margin-bottom: 5%;
+}
+
+.titulo h1 {
+  font-size:46px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:max-content; text-align:center;  white-space:nowrap; padding-bottom:13px; margin-bottom: 0;
+  
+}
+.titulo h1:before {
+    background-color: #8E4CF0;
+    content: '';
+    display: block;
+    height: 3px;
+    width: 120px;
+    margin-bottom: 5px;
+}
+
+#textoneon1{
+    color: #8E4CF0;
+    text-shadow: 0vw 0vw 1vw #8860C5, 0 0 1vw #8860C5, 0 0 1vw #8860C5, 0 0 2vw #8860C5;
+}
+
+
+.titulo img{
+    width: 250px;
+}
+
+.quadrados {
+  position: relative;
+  width: 900px;
+  height: 800px;
+}
+
+
+.quadrado {
+  position: absolute;
+  width: 70%;
+  height: 60%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 2px 14px 32px rgba(0,0,0,0.25);
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent; 
+  border-radius: 10px;
+}
+
+
+.quadrado1 {
+  left: 400px;
+  top: 100px;
+  z-index: 1;
+  background-image: url('');
+}
+
+.quadrado2 {
+  left: 0px;
+  top: 200px;
+  transform: rotate(-17.18deg);
+  z-index: 2;
+  background-image: url('');
+}
+
+.quadrado3 {
+  left: 200px;
+  top: 0px;
+  transform: rotate(6.25deg);
+  z-index: 3;
+  background-image: url('');
+}
