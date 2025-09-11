@@ -1,42 +1,68 @@
-steamid = "76561198930612193"; // Exemplo de SteamID
-const url = "http://localhost:3000/screenshots/steamid".replace("steamid", steamid);
+// steamid = "76561198930612193"; // Exemplo de SteamID
+// const url = "http://localhost:3000/screenshots/steamid".replace("steamid", steamid); antigo localhost
 
 
 
-async function preencherCarrossel() {
-  const res = await fetch(url);
-  const data = await res.json();
+let steamid = "";
+let url = "";
 
-  if (data.response && data.response.publishedfiledetails.length > 0) {
-    const captures = data.response.publishedfiledetails;
-    // Preenche até 8 páginas (4 itens, cada um com left/right)
-    for (let i = 0; i < 8; i += 2) {
-      // Left
-      const imgLeft = document.getElementById(`capturaLivro${i+1}`);
-      const tituloLeft = document.getElementById(`tituloJogo${i+1}`);
-      const descLeft = document.getElementById(`descricaoJogo${i+1}`);
+let effectMode = 'padrao'; // 'padrao', 'holo', 'fullart', 'nenhum'
 
-      if (imgLeft && captures[i]) {
-        imgLeft.src = captures[i].file_url || captures[i].preview_url || "";
-        tituloLeft.textContent = captures[i].app_name || "Nome do jogo";
-        descLeft.textContent = captures[i].short_description || "Sem descrição.";
+// checkboxes
+window.addEventListener('DOMContentLoaded', () => {
+  const cbHolo = document.getElementById('cb-holo');
+  const cbFullArt = document.getElementById('cb-fullart');
+  const cbPadrao = document.getElementById('cb-padrao');
+  if (cbHolo && cbFullArt && cbPadrao) {
+    function updateEffectMode() {
+      if (cbPadrao.checked) {
+        cbHolo.checked = false;
+        cbFullArt.checked = false;
       }
-
-      // Right
-      const imgRight = document.getElementById(`capturaLivro${i+2}`);
-      const tituloRight = document.getElementById(`tituloJogo${i+2}`);
-      const descRight = document.getElementById(`descricaoJogo${i+2}`);
-
-      if (imgRight && captures[i+1]) {
-        imgRight.src = captures[i+1].file_url || captures[i+1].preview_url || "";
-        tituloRight.textContent = captures[i+1].app_name || "Nome do jogo";
-        descRight.textContent = captures[i+1].short_description || "Sem descrição.";
-      }
+      preencherCards();
     }
+    cbHolo.addEventListener('change', updateEffectMode);
+    cbFullArt.addEventListener('change', updateEffectMode);
+    cbPadrao.addEventListener('change', updateEffectMode);
   }
+});
+
+function setSteamIdAndReload(newId) {
+  steamid = newId;
+  url = `http://localhost:3000/screenshots/${steamid}`;
+  // url = `/api/screenshots/${steamid}`; depois isso é no server
+  setQuadrados();
+  preencherCards();
 }
 
-preencherCarrossel();
+// Modal SteamID
+window.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('steamid-modal');
+  const input = document.getElementById('input-steamid');
+  const btn = document.getElementById('btn-buscar-steamid');
+  if (modal && input && btn) {
+    btn.onclick = () => {
+      const val = input.value.trim();
+      if (/^\d{17}$/.test(val)) {
+        setSteamIdAndReload(val);
+        modal.style.display = 'none';
+      } else {
+        input.style.border = '2px solid #f44';
+        input.focus();
+      }
+    };
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') btn.click();
+    });
+    setTimeout(() => input.focus(), 100);
+  }
+});
+
+if (steamid) {
+  url = `/api/screenshots/${steamid}`;
+  setQuadrados();
+  preencherCards();
+}
 
 // ------------------------------
 
@@ -48,10 +74,8 @@ async function setQuadrados() {
     if (data.response && data.response.publishedfiledetails.length > 0) {
       const captures = data.response.publishedfiledetails;
 
-      // lista das classes dos quadrados na ordem
       const quadrados = ['.quadrado3', '.quadrado2', '.quadrado1'];
 
-      // preenche cada quadrado disponível
       quadrados.forEach((classe, index) => {
         if (captures[index]) {
           document.querySelector(classe).style.backgroundImage =
@@ -64,13 +88,10 @@ async function setQuadrados() {
   }
 }
 
-setQuadrados();
-
 // ------------------------------
 
+// preencher os cards
 
-
-// Chame após preencherCards
 async function preencherCards() {
   const res = await fetch(url);
   const data = await res.json();
@@ -80,11 +101,24 @@ async function preencherCards() {
     const cardsContainer = document.getElementById('cards');
     cardsContainer.innerHTML = "";
 
+   
+    const cbHolo = document.getElementById('cb-holo');
+    const cbFullArt = document.getElementById('cb-fullart');
+    const cbPadrao = document.getElementById('cb-padrao');
+
     captures.forEach((captura, idx) => {
       const card = document.createElement('div');
-      // Sorteia 30% dos cards para serem holo e 30% para serem fullart
-      const isHolo = Math.random() < 0.4;
-      const isFullArt = Math.random() < 0.4;
+      let isHolo = false;
+      let isFullArt = false;
+     
+      if (cbPadrao && cbPadrao.checked) {
+       
+        isHolo = Math.random() < 0.4;
+        isFullArt = Math.random() < 0.4;
+      } else {
+        isHolo = cbHolo && cbHolo.checked;
+        isFullArt = cbFullArt && cbFullArt.checked;
+      }
 
       card.className = 'card' + (isHolo ? ' holo' : '') + (isFullArt ? ' fullart' : '');
 
@@ -107,22 +141,24 @@ async function preencherCards() {
       // Evento para o botão de "imprimir"
       const printButton = card.querySelector('.print-button');
       printButton.addEventListener('click', (e) => {
-        e.stopPropagation(); // Impede que o modal do card seja aberto
+        e.stopPropagation(); 
 
-        // Salva o estado original do card para restaurar depois
         const originalTransform = card.style.transform;
         const wasHolo = card.classList.contains('holo');
-
-        // Remove temporariamente os estilos que causam problemas na captura
+        
         card.style.transform = '';
         card.classList.remove('is-tilting');
-        card.classList.remove('holo'); // Remove o efeito holo para a captura
-        card.classList.add('capturing'); // Esconde o botão de imprimir via CSS
+        card.classList.add('capturing'); 
+        
+        let holoOverlay = null;
+        if (wasHolo) {
+          card.classList.remove('holo');
+        }
 
         html2canvas(card, {
-          useCORS: true, // Necessário para imagens de outros domínios
-          backgroundColor: null, // Mantém o fundo transparente se houver
-          scale: 2 // Aumenta a escala para melhorar a qualidade e corrigir artefatos
+          useCORS: true, 
+          backgroundColor: null, 
+          scale: 2 
         }).then(canvas => {
           const link = document.createElement('a');
           link.download = `${captura.app_name || 'card'}.png`;
@@ -132,7 +168,6 @@ async function preencherCards() {
           console.error('Erro ao gerar a imagem do card:', err);
           alert('Não foi possível gerar a imagem do card.');
         }).finally(() => {
-          // Restaura o estado original do card após a captura
           card.style.transform = originalTransform;
           if (originalTransform) {
             card.classList.add('is-tilting');
@@ -160,18 +195,16 @@ async function preencherCards() {
         card.style.transform = '';
         card.classList.remove('is-tilting');
       });
-      // Modal ao clicar
+      
       card.addEventListener('click', () => {
-        console.log('Card clicado!');
+        
         document.getElementById('modalImagem').src = imageUrl;
         document.getElementById('modalTitulo').textContent = captura.app_name || 'Nome do jogo';
         document.getElementById('modalDescricao').textContent = captura.short_description || 'Sem descrição.';
 
-        // Adiciona ou remove a classe holo no card ampliado conforme o card clicado
         const modalCard = document.querySelector('.card-ampliada');
         modalCard.classList.toggle('holo', isHolo);
 
-        // Garante que o modal nunca seja fullart, para a imagem aparecer normalmente
         modalCard.classList.remove('fullart');
         modalCard.style.backgroundImage = '';
 
@@ -181,8 +214,7 @@ async function preencherCards() {
     });
   }
 
-  // --- Manipuladores de evento do Modal ---
-
+// card ampliado
   const modalCard = document.querySelector('.card-ampliada');
 
   // Efeito tilt para o card ampliado
@@ -208,8 +240,6 @@ async function preencherCards() {
   // Abrir a imagem em uma nova aba ao clicar no card ampliado
   if (modalCard) {
     modalCard.onclick = (e) => {
-      // Impede que a imagem seja aberta se o clique for no botão de fechar.
-      // O evento de clique do próprio botão cuidará de fechar o modal.
       if (e.target.closest('#fecharModal')) {
         return;
       }
@@ -230,13 +260,11 @@ async function preencherCards() {
     }
   }
 
-  // Fechar modal
   const fecharBtn = document.getElementById('fecharModal');
   if (fecharBtn) {
     fecharBtn.onclick = fecharEresetarModal;
   }
 
-  // Fechar modal ao clicar fora do card
   document.getElementById('card-modal').onclick = function(e) {
     if (e.target === this) {
       fecharEresetarModal();

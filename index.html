@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capturas</title>
     <link rel="stylesheet" type="text/css" href="stylesheet/main.css">
+    <link rel="stylesheet" type="text/css" href="stylesheet/mobile.css">
     <script type="text/javascript" src="javascript/event.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="shortcut icon" href="assets/Steam_icon_logo.svg.png" type="image/x-icon"/>
 
 </head>
 <body>
+    <div id="steamid-modal" class="steamid-modal">
+      <div class="steamid-modal-content">
+        <h2>Digite o SteamID para ver as capturas</h2>
+        <input type="text" id="input-steamid" placeholder="Ex: 7656119..." />
+        <button id="btn-buscar-steamid">Buscar</button>
+      </div>
+    </div>
     <section id="inicio">
         <div class="container2">
         <div class="titulo">
@@ -22,100 +30,21 @@
   <div class="quadrado quadrado1"></div>
   <div class="quadrado quadrado2"></div>
   <div class="quadrado quadrado3"></div>
-</div>
-
-            
+</div>       
         </div>
-        
     </div>
     </section>
-<section class="livro">
-    <div class="container">
-  
-  <div class="sprite-wrapper">
-    <div class="book">
-      <div class="carousel" style="--slides: 4;">
-        <div class="sprite"></div>
-        <div class="carousel-item">
-  <div class="page-container">
-    <div class="page left-page">
-      <div>
-        <img id="capturaLivro1" src="" width="100%" alt="">
-        <h1 id="tituloJogo1">Nome do jogo</h1>
-        <p id="descricaoJogo1">Descrição...</p>
-      </div>
-    </div>
-    <div class="page right-page">
-      <div>
-        <img id="capturaLivro2" src="" width="100%" alt="">
-        <h1 id="tituloJogo2">Nome do jogo</h1>
-        <p id="descricaoJogo2">Descrição...</p>
-      </div>
-    </div>
-  </div>
+<div style="display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; align-items: center; flex-wrap: wrap;">
+  <label style="display: flex; align-items: center; gap: 0.5rem;">
+    <input type="checkbox" id="cb-holo" /> Holo em todos
+  </label>
+  <label style="display: flex; align-items: center; gap: 0.5rem;">
+    <input type="checkbox" id="cb-fullart" /> Full Art em todos
+  </label>
+  <label style="display: flex; align-items: center; gap: 0.5rem;">
+    <input type="checkbox" id="cb-padrao" checked /> Aleatório (padrão)
+  </label>
 </div>
-<div class="carousel-item">
-  <div class="page-container">
-    <div class="page left-page">
-      <div>
-        <img id="capturaLivro3" src="" width="100%" alt="">
-        <h1 id="tituloJogo3">Nome do jogo</h1>
-        <p id="descricaoJogo3">Descrição...</p>
-      </div>
-    </div>
-    <div class="page right-page">
-      <div>
-        <img id="capturaLivro4" src="" width="100%" alt="">
-        <h1 id="tituloJogo4">Nome do jogo</h1>
-        <p id="descricaoJogo4">Descrição...</p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="carousel-item">
-  <div class="page-container">
-    <div class="page left-page">
-      <div>
-        <img id="capturaLivro5" src="" width="100%" alt="">
-        <h1 id="tituloJogo5">Nome do jogo</h1>
-        <p id="descricaoJogo5">Descrição...</p>
-      </div>
-    </div>
-    <div class="page right-page">
-      <div>
-        <img id="capturaLivro6" src="" width="100%" alt="">
-        <h1 id="tituloJogo6">Nome do jogo</h1>
-        <p id="descricaoJogo6">Descrição...</p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="carousel-item">
-  <div class="page-container">
-    <div class="page left-page">
-      <div>
-        <img id="capturaLivro7" src="" width="100%" alt="">
-        <h1 id="tituloJogo7">Nome do jogo</h1>
-        <p id="descricaoJogo7">Descrição...</p>
-      </div>
-    </div>
-    <div class="page right-page">
-      <div>
-        <img id="capturaLivro8" src="" width="100%" alt="">
-        <h1 id="tituloJogo8">Nome do jogo</h1>
-        <p id="descricaoJogo8">Descrição...</p>
-      </div>
-    </div>
-  </div>
-</div>
-      </div>
-    </div>
-    </div>
-  </div>
-  </section>
-
-  
-
 <div id="cards"></div>
   <div id="card-modal" class="card-modal" style="display:none;">
     <div class="card card-ampliada">
