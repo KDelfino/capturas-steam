@@ -3,71 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capturas</title>
+    <title>Steam Capture TCG</title>
+    <!-- Google Fonts: Outfit (modern sans) and Press Start 2P (retro pixel fallback/elements) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" type="text/css" href="stylesheet/main.css">
     <link rel="stylesheet" type="text/css" href="stylesheet/mobile.css">
     <script type="text/javascript" src="javascript/event.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="shortcut icon" href="assets/logo steam.png" type="image/x-icon"/>
-
 </head>
 <body>
+    <!-- Modal SteamID Inicial -->
     <div id="steamid-modal" class="steamid-modal">
       <div class="steamid-modal-content">
-        <h2>Digite o SteamID para ver as capturas</h2>
-        <h3>
-  <a href="https://steamidcheck.com/" target="_blank">
-    Não sabe seu SteamID? Aqui pode ajudar a encontrar.
-  </a>
-</h3>
-        <input type="text" id="input-steamid" placeholder="Ex: 7656119..." />
-        <button id="btn-buscar-steamid">Buscar</button>
+        <div class="modal-decorations">
+          <span class="decor-dot red"></span>
+          <span class="decor-dot yellow"></span>
+          <span class="decor-dot green"></span>
+        </div>
+        <img src="assets/logosteam2.png" alt="Steam Logo" class="modal-logo">
+        <h2>Colecione Suas Capturas</h2>
+        <p class="modal-sub">Transforme suas screenshots da Steam em cards colecionáveis estilo Pokémon!</p>
+        <div class="input-wrapper">
+          <input type="text" id="input-steamid" placeholder="Digite seu SteamID (Ex: 7656119...)" />
+          <button id="btn-buscar-steamid">Buscar</button>
+        </div>
+        <a href="https://steamidcheck.com/" target="_blank" class="steamid-help">
+          🔍 Não sabe seu SteamID? Clique aqui para encontrar.
+        </a>
       </div>
     </div>
+
+    <!-- Seção de Início / Destaque -->
     <section id="inicio">
-        <div class="container2">
-        <div class="titulo">
-            <h1>Capturas <span id="textoneon1">Legais</span></h1>
-            <img src="assets/logosteam2.png" alt="">
+      <div class="container2">
+        <div class="titulo-container">
+          <div class="titulo">
+            <h1>Steam <span id="textoneon1">TCG</span></h1>
+            <p class="subtitle">Suas conquistas ilustradas em cartas colecionáveis</p>
+          </div>
+          <!-- Card do Treinador Moderno -->
+          <div id="cardTreinador" class="trainer-card">
+            <div class="trainer-card-header">
+              <span class="tc-title">TRAINER PASSPORT</span>
+              <span class="tc-id" id="trainer-steam-id">ID: -----------------</span>
+            </div>
+            <div class="trainer-card-body">
+              <div class="trainer-info">
+                <h2 id="trainer-name">Carregando...</h2>
+                <div class="trainer-stats">
+                  <div class="stat-row">
+                    <span class="stat-label">STATUS:</span>
+                    <span class="stat-value" id="trainer-status"><span class="status-dot"></span> Offline</span>
+                  </div>
+                  <div class="stat-row">
+                    <span class="stat-label">CARTAS:</span>
+                    <span class="stat-value" id="trainer-card-count">0</span>
+                  </div>
+                </div>
+              </div>
+              <div class="trainer-avatar-container">
+                <img id="trainer-avatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100%' height='100%' fill='%233e3946'/><text x='50%' y='55%' font-family='sans-serif' font-size='32' fill='%23645c70' text-anchor='middle'>?</text></svg>" alt="Avatar">
+              </div>
+            </div>
+            <div class="trainer-badges">
+              <span class="badge badge-1 locked" title="Bronze Capture Badge">⚔️</span>
+              <span class="badge badge-2 locked" title="Silver Capture Badge">🛡️</span>
+              <span class="badge badge-3 locked" title="Gold Capture Badge">🔥</span>
+              <span class="badge badge-4 locked" title="Aqua Master Badge">💧</span>
+              <span class="badge badge-5 locked" title="Volt Shock Badge">⚡</span>
+              <span class="badge badge-6 locked" title="Forest Keeper Badge">🌿</span>
+              <span class="badge badge-7 locked" title="Psychic Mind Badge">🔮</span>
+              <span class="badge badge-8 locked" title="Legendary Badge">✨</span>
+            </div>
+          </div>
         </div>
+
+        <!-- Pilha de Destaques 3D -->
         <div id="destaque">
-             <div class="quadrados">
-  <div class="quadrado quadrado1"></div>
-  <div class="quadrado quadrado2"></div>
-  <div class="quadrado quadrado3"></div>
-</div>       
+          <div class="quadrados">
+            <div class="quadrado quadrado1"></div>
+            <div class="quadrado quadrado2"></div>
+            <div class="quadrado quadrado3"></div>
+          </div>       
         </div>
-    </div>
- <section>
-      <div id="cardTreinador">
-        <h2>Card do Treinador</h2>
-        <img src="" alt="">
-        <p>Descrição do card do treinador.</p>
       </div>
     </section>
-    </section>
-<div style="display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; align-items: center; flex-wrap: wrap;">
-  <label style="display: flex; align-items: center; gap: 0.5rem;">
-    <input type="checkbox" id="cb-holo" /> Holo em todos
-  </label>
-  <label style="display: flex; align-items: center; gap: 0.5rem;">
-    <input type="checkbox" id="cb-fullart" /> Full Art em todos
-  </label>
-  <label style="display: flex; align-items: center; gap: 0.5rem;">
-    <input type="checkbox" id="cb-padrao" checked /> Aleatório (padrão)
-  </label>
-</div>
-<div id="cards"></div>
-  <div id="card-modal" class="card-modal" style="display:none;">
-    <div class="card card-ampliada">
-      <h3 id="modalTitulo"></h3>
-      <img id="modalImagem" src="" alt="">
-      <div class="info-screen">
-        
-        <p id="modalDescricao"></p>
+
+    <!-- Painel de Controle e Filtros -->
+    <div class="control-panel">
+      <div class="control-section search-filters">
+        <div class="input-group">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-cards" placeholder="Buscar por jogo ou descrição..." />
+        </div>
+        <div class="select-group">
+          <label for="filter-game">Jogo:</label>
+          <select id="filter-game">
+            <option value="all">Todos os Jogos</option>
+          </select>
+        </div>
       </div>
       
+      <div class="control-section effect-filters">
+        <label class="toggle-pill">
+          <input type="radio" name="effect-group" id="cb-padrao" checked />
+          <span>🎲 Aleatório</span>
+        </label>
+        <label class="toggle-pill">
+          <input type="radio" name="effect-group" id="cb-holo" />
+          <span>✨ Holo em Todos</span>
+        </label>
+        <label class="toggle-pill">
+          <input type="radio" name="effect-group" id="cb-fullart" />
+          <span>🖼️ Full Art em Todos</span>
+        </label>
+      </div>
     </div>
-  </div>
+
+    <!-- Grid de Cards -->
+    <div id="cards"></div>
+
+    <!-- Modal do Personalizador de Cards (Split-Screen) -->
+    <div id="card-modal" class="card-modal" style="display:none;">
+      <div class="modal-wrapper">
+        <button id="fecharModal" class="modal-close-btn">&times;</button>
+        <div class="modal-layout">
+          <!-- Lado Esquerdo: Preview Interativo do Card -->
+          <div class="modal-preview-side">
+            <div class="card-preview-container" id="modalCardPreviewContainer">
+              <div class="card card-ampliada" id="previewCard">
+                <!-- Conteúdo do card injetado dinamicamente -->
+              </div>
+            </div>
+          </div>
+          <!-- Lado Direito: Editor/Personalizador -->
+          <div class="modal-editor-side">
+            <h2>Personalizar Card</h2>
+            <p class="editor-subtitle">Personalize os detalhes deste card antes de exportar</p>
+            
+            <div class="editor-group">
+              <label for="edit-titulo">Nome da Carta</label>
+              <input type="text" id="edit-titulo" />
+            </div>
+
+            <div class="editor-row">
+              <div class="editor-group flex-2">
+                <label for="edit-tipo">Elemento (Tipo)</label>
+                <select id="edit-tipo">
+                  <option value="fogo">🔥 Fogo (Ação/Aventura RPG)</option>
+                  <option value="agua">💧 Água (Exploração/Marítimo)</option>
+                  <option value="grama">🌿 Planta (Simuladores/Tranquilo)</option>
+                  <option value="raio">⚡ Raio (Cyberpunk/Scifi)</option>
+                  <option value="psiquico">🔮 Psíquico (Puzzle/Mistério)</option>
+                  <option value="metal">⚙️ Metal (Construção/Estratégia)</option>
+                  <option value="sombrio">👁️ Sombrio (Terror/Souls-like)</option>
+                  <option value="dragao">🐉 Dragão (Épico/Fantasia)</option>
+                  <option value="incolor">⚪ Incolor (Geral)</option>
+                </select>
+              </div>
+              <div class="editor-group flex-1">
+                <label for="edit-hp">HP</label>
+                <input type="number" id="edit-hp" min="10" max="990" step="10" />
+              </div>
+            </div>
+
+            <div class="editor-group">
+              <label for="edit-descricao">Descrição / Legenda</label>
+              <textarea id="edit-descricao" rows="2"></textarea>
+            </div>
+            
+            <div class="editor-section-title">Ataque 1</div>
+            <div class="editor-row">
+              <div class="editor-group flex-3">
+                <label for="edit-atk1-nome">Nome do Ataque</label>
+                <input type="text" id="edit-atk1-nome" />
+              </div>
+              <div class="editor-group flex-1">
+                <label for="edit-atk1-dmg">Dano</label>
+                <input type="text" id="edit-atk1-dmg" />
+              </div>
+            </div>
+
+            <div class="editor-section-title">Ataque 2</div>
+            <div class="editor-row">
+              <div class="editor-group flex-3">
+                <label for="edit-atk2-nome">Nome do Ataque</label>
+                <input type="text" id="edit-atk2-nome" />
+              </div>
+              <div class="editor-group flex-1">
+                <label for="edit-atk2-dmg">Dano</label>
+                <input type="text" id="edit-atk2-dmg" />
+              </div>
+            </div>
+
+            <div class="editor-checkboxes">
+              <label class="custom-toggle">
+                <input type="checkbox" id="edit-holo" />
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Holográfico (Holo)</span>
+              </label>
+              <label class="custom-toggle">
+                <input type="checkbox" id="edit-fullart" />
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Arte Completa (Full Art)</span>
+              </label>
+            </div>
+
+            <div class="editor-actions">
+              <button id="btn-export-card" class="btn-primary">📸 Salvar como Imagem</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

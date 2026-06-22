@@ -1,460 +1,1259 @@
-/* Modal SteamID */
-.steamid-modal {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(40,33,51,0.7);
-  backdrop-filter: blur(6px);
-  z-index: 10001;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Card do Treinador */
-#cardTreinador {
-  position: relative;
-  width: 350px;
-  max-width: 350px;
-  min-height: 200px;
-  background: linear-gradient(120deg, #8E4CF0 0%, #282133 100%);
-  border-radius: 15px;
-  box-shadow: 0 0 24px 4px #8E4CF0, 0 0 12px 2px #8860C5;
-  margin: 2rem auto 2rem auto;
-  padding: 1.5rem 1rem 1rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: #fff;
-  font-family: 'PixelText', serif;
-  z-index: 2;
-}
-#cardTreinador h2 {
-  font-size: 1.5rem;
-  margin: 0.5rem 0 0.5rem 0;
-  text-align: center;
-  background: linear-gradient(90deg, #fff 40%, #8E4CF0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-#cardTreinador img {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #fff;
-  margin-bottom: 0.5rem;
-  box-shadow: 0 0 12px #8E4CF0;
-}
-#cardTreinador p {
-  background: rgba(62, 57, 70, 0.7);
-  border-radius: 10px;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem 0 0 0;
-  font-size: 1rem;
-  text-align: center;
-  color: #fff;
-  word-break: break-word;
-}
-#cardTreinador a {
-  color: #000000;
-  text-decoration: underline;
-  word-break: break-all;
-}
-
-
-.steamid-modal-content {
-  background: #282133;
-  color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 0 32px #0008;
-  padding: 2rem 2.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-.steamid-modal-content input {
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  border: none;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-.steamid-modal-content button {
-  background: #8E4CF0;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 0.5rem 1.5rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.steamid-modal-content button:hover {
-  background: #7B659B;
-}
-/* cores
-#8E4CF0
-#8860C5
-#7B659B
-#645C70
-#3E3946
-#282133
- */
-
+/* ==========================================================================
+   Design System & Variáveis Globais
+   ========================================================================== */
 :root {
-  font-family: 'PixelText', serif;
-  font-optical-sizing: auto;
-  line-height: 1.5;
-  font-weight: 400;
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'PixelText', 'Press Start 2P', monospace;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Cores Temáticas Steam / Cyberpunk */
+  --bg-dark-base: #0a0d14;
+  --bg-dark-surface: #121622;
+  --bg-dark-panel: rgba(22, 28, 45, 0.7);
+  --border-glow: rgba(142, 76, 240, 0.25);
+  
+  --steam-blue: #171a21;
+  --steam-blue-light: #2a475e;
+  --steam-blue-glow: #66c0f4;
+  
+  --neon-purple: #8e4cf0;
+  --neon-purple-glow: rgba(142, 76, 240, 0.5);
+  --neon-cyan: #00d2ff;
+  --neon-cyan-glow: rgba(0, 210, 255, 0.4);
+  --neon-green: #39e6a0;
+  
+  --text-white: #ffffff;
+  --text-muted: #8b92a4;
+  --text-dark: #12141a;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  /* Cores Elementais TCG */
+  --color-fogo: #ff5a36;
+  --color-agua: #2b99ff;
+  --color-grama: #4ade80;
+  --color-raio: #facc15;
+  --color-psiquico: #c084fc;
+  --color-metal: #94a3b8;
+  --color-sombrio: #475569;
+  --color-dragao: #f97316;
+  --color-incolor: #cbd5e1;
+}
+
+@font-face {
+  font-family: 'PixelText';
+  src: url(https://assets.codepen.io/36869/Grand9KPixel.ttf);
+}
+
+/* ==========================================================================
+   Estilos de Redefinição e Estrutura Geral
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-dark-base);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(142, 76, 240, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 210, 255, 0.08) 0%, transparent 40%);
+  color: var(--text-white);
+  min-height: 100vh;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@font-face {
-  font-family: PixelText;
-  src: url(https://assets.codepen.io/36869/Grand9KPixel.ttf);
+/* Títulos Globais */
+h1, h2, h3, h4, .pixel-text {
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
 }
 
-.card {
-  position: relative;
-  transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.2s;
-  will-change: transform, filter;
-  background-color: #040712;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  box-shadow: 0 0 16px 4px rgba(255,255,255,0.2);
-  overflow: hidden;
+/* Links */
+a {
+  color: var(--neon-cyan);
+  text-decoration: none;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px var(--neon-cyan-glow);
 }
 
-.card.holo::before, .card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  transition: all .3s;
-  mix-blend-mode: lighten;
-  opacity: 0.5;
-}
-
-.card.holo::before {
-  background: linear-gradient(120deg, #fff2 0%, #fff8 50%, #fff2 100%);
-  z-index: 1;
-  animation: cardShine 2.5s linear infinite;
-}
-
-.card.holo:after {
-  background-image: url("https://assets.codepen.io/13471/sparkles.gif"), 
-    url("https://assets.codepen.io/13471/holo.png"),
-    linear-gradient(135deg, #8E4CF0 10%, #fca400 40%, #00cfff 80%);
-  background-size: 180%;
-  background-position: center;
-  mix-blend-mode: screen;
-  z-index: 2;
-  filter: brightness(1.1) contrast(1.2);
-  animation: cardSparkle 3s ease-in-out infinite;
-}
-
-.card:hover, .card:focus {
-  transform: scale(1.06) rotateZ(-2deg);
-  box-shadow: 0 0 32px 8px #8E4CF0, 0 0 24px 4px #8860C5;
-}
-
-
-
-.card:hover::before, .card:focus::before {
-  opacity: 0.8;
-  filter: brightness(1.2);
-}
-
-.card:hover::after, .card:focus::after {
-  opacity: 1;
-  filter: brightness(1.3) contrast(1.3);
-}
-
-@keyframes cardShine {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes cardSparkle {
-  0%, 100% { opacity: .5; background-position: center; }
-  50% { opacity: 1; background-position: 60% 40%; }
-}
-
-.card-modal {
+/* ==========================================================================
+   Modal Inicial SteamID (Glassmorphic)
+   ========================================================================== */
+.steamid-modal {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(40,33,51,0.85);
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(8, 10, 16, 0.8);
+  backdrop-filter: blur(12px);
+  z-index: 10001;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999; /* bem alto */
-}
-.card-ampliada {
-  width: 1000px !important;
-  height: auto !important;
-  max-width: 95vw !important;
-  max-height: 90vh !important;
-  flex: none !important;
-  z-index: 10000; 
-  background: #8860C5;
-  transition: transform 0.2s, width 0.3s, height 0.3s;
-  transform: scale(1.08);
+  animation: fadeIn 0.4s ease-out;
 }
 
-
-
-.card.holo {
+.steamid-modal-content {
+  background: var(--bg-dark-surface);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.5), 
+    0 0 40px rgba(142, 76, 240, 0.15);
+  border-radius: 20px;
+  padding: 3rem;
+  width: 500px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   position: relative;
+  gap: 1.2rem;
+}
+
+.modal-decorations {
+  display: flex;
+  gap: 6px;
+  position: absolute;
+  top: 15px;
+  left: 20px;
+}
+
+.decor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.decor-dot.red { background-color: #ff5f56; }
+.decor-dot.yellow { background-color: #ffbd2e; }
+.decor-dot.green { background-color: #27c93f; }
+
+.modal-logo {
+  width: 90px;
+  height: 90px;
+  filter: drop-shadow(0 0 15px var(--neon-purple-glow));
+  margin-bottom: 0.5rem;
+}
+
+.steamid-modal-content h2 {
+  font-size: 1.5rem;
+  background: linear-gradient(90deg, #fff 30%, var(--neon-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.modal-sub {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.input-wrapper {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.steamid-modal-content input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.steamid-modal-content input:focus {
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 10px rgba(142, 76, 240, 0.3);
+}
+
+.steamid-modal-content button {
+  background: var(--neon-purple);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1.8rem;
+  font-size: 1rem;
+  font-family: var(--font-mono);
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(142, 76, 240, 0.3);
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+
+.steamid-modal-content button:hover {
+  background: #a26aff;
+  box-shadow: 0 4px 20px rgba(142, 76, 240, 0.5);
+  transform: translateY(-1px);
+}
+
+.steamid-modal-content button:active {
+  transform: translateY(1px);
+}
+
+.steamid-help {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+/* ==========================================================================
+   Seção Cabeçalho & Destaques
+   ========================================================================== */
+#inicio {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 2rem 1.5rem 2rem;
+}
+
+.container2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.titulo-container {
+  flex: 1 1 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.titulo h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #fff 40%, var(--neon-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.2rem;
+  line-height: 1.1;
+}
+
+#textoneon1 {
+  color: var(--neon-purple);
+  text-shadow: 0 0 15px var(--neon-purple-glow);
+  -webkit-text-fill-color: initial;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   Trainer Card (Estilo Pokemon Badge)
+   ========================================================================== */
+.trainer-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(135deg, #1b2030 0%, #0d101a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.3), 
+    0 0 25px rgba(142, 76, 240, 0.1);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.trainer-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
+}
+
+.trainer-card-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.5rem;
+}
+
+.tc-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 6px rgba(0, 210, 255, 0.4);
+}
+
+.tc-id {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.trainer-card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.trainer-info {
+  flex: 1;
+}
+
+.trainer-info h2 {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 0.8rem;
+  word-break: break-word;
+}
+
+.trainer-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stat-row {
+  display: flex;
+  font-size: 0.9rem;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  width: 75px;
+  font-weight: 600;
+}
+
+.stat-value {
+  color: #fff;
+  font-weight: 500;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #8b92a4;
+  margin-right: 5px;
+}
+
+.status-dot.online {
+  background-color: var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green);
+  animation: pulse-green 2s infinite;
+}
+
+.trainer-avatar-container {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.2);
+}
+
+.trainer-avatar-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trainer-badges {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.badge {
+  font-size: 1.2rem;
+  filter: grayscale(1) opacity(0.3);
+  transition: filter 0.3s, transform 0.2s;
+  cursor: help;
+}
+
+.badge.active {
+  filter: grayscale(0) opacity(1);
+}
+
+.badge:hover {
+  transform: scale(1.2);
+}
+
+/* ==========================================================================
+   Pilha de Fotos 3D
+   ========================================================================== */
+#destaque {
+  flex: 1 1 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 450px;
+}
+
+.quadrados {
+  position: relative;
+  width: 380px;
+  height: 280px;
+}
+
+.quadrado {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: 6px solid #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), z-index 0.5s;
+  cursor: pointer;
+}
+
+.quadrado1 {
+  transform: rotate(5deg) translate(20px, -20px);
+  z-index: 1;
+}
+
+.quadrado2 {
+  transform: rotate(-8deg) translate(-20px, 10px);
+  z-index: 2;
+}
+
+.quadrado3 {
+  transform: rotate(2deg);
+  z-index: 3;
+}
+
+/* Efeito Hover na Pilha */
+.quadrados:hover .quadrado1 {
+  transform: rotate(15deg) translate(80px, -50px) scale(1.05);
+  z-index: 4;
+}
+
+.quadrados:hover .quadrado2 {
+  transform: rotate(-18deg) translate(-80px, 40px) scale(1.05);
+  z-index: 4;
+}
+
+.quadrados:hover .quadrado3 {
+  transform: scale(1.1);
+  box-shadow: 0 15px 40px rgba(142, 76, 240, 0.3);
+}
+
+/* ==========================================================================
+   Painel de Controle e Filtros
+   ========================================================================== */
+.control-panel {
+  max-width: 1400px;
+  margin: 1.5rem auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.control-section {
+  background: var(--bg-dark-panel);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.search-filters {
+  flex: 1 1 500px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-group {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.6rem 0.6rem 0.6rem 2.2rem;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-group input:focus {
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 8px rgba(142, 76, 240, 0.25);
+}
+
+.select-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.select-group label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.select-group select {
+  padding: 0.6rem 1rem;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.select-group select:focus {
+  border-color: var(--neon-purple);
+}
+
+/* Radio pills */
+.effect-filters {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.toggle-pill {
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-pill input {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+}
+
+.toggle-pill span {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.toggle-pill:hover span {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.toggle-pill input:checked + span {
+  background: var(--neon-purple);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(142, 76, 240, 0.3);
+}
+
+/* ==========================================================================
+   Grid de Cards & Pokémon Card Design
+   ========================================================================== */
+#cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2.5rem;
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem 5rem 2rem;
+  justify-items: center;
+}
+
+/* Card Pokémon */
+.card {
+  position: relative;
+  width: 340px;
+  height: 480px;
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  background: #cbd5e1; /* Cor Incolor padrão */
+  color: var(--text-dark);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s;
+  overflow: hidden;
+  will-change: transform;
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Variantes de Cor de Borda e Fundo por Elemento */
+.card.type-fogo {
+  background: linear-gradient(135deg, #fcd34d 0%, #f97316 40%, #ef4444 100%);
+  border: 6px solid #b91c1c;
+}
+.card.type-agua {
+  background: linear-gradient(135deg, #bae6fd 0%, #38bdf8 40%, #0284c7 100%);
+  border: 6px solid #0369a1;
+}
+.card.type-grama {
+  background: linear-gradient(135deg, #bbf7d0 0%, #4ade80 40%, #16a34a 100%);
+  border: 6px solid #15803d;
+}
+.card.type-raio {
+  background: linear-gradient(135deg, #fef08a 0%, #facc15 45%, #ca8a04 100%);
+  border: 6px solid #a16207;
+}
+.card.type-psiquico {
+  background: linear-gradient(135deg, #f5d0fe 0%, #d8b4fe 40%, #a855f7 100%);
+  border: 6px solid #7e22ce;
+}
+.card.type-metal {
+  background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 45%, #64748b 100%);
+  border: 6px solid #475569;
+}
+.card.type-sombrio {
+  background: linear-gradient(135deg, #475569 0%, #1e293b 40%, #0f172a 100%);
+  border: 6px solid #020617;
+  color: #fff; /* Texto claro para cards escuros */
+}
+.card.type-dragao {
+  background: linear-gradient(135deg, #fed7aa 0%, #f97316 35%, #b45309 100%);
+  border: 6px solid #7c2d12;
+}
+.card.type-incolor {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #94a3b8 100%);
+  border: 6px solid #475569;
+}
+
+/* Efeito Hover 3D Geral */
+.card:hover {
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.6), 
+    0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+/* Cabeçalho do Card (Nome, HP, Tipo) */
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+}
+
+.card-title-text {
+  font-size: 1.1rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
+}
+
+.card-hp-area {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.hp-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  vertical-align: bottom;
+}
+
+.hp-num {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.energy-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.2);
+  font-size: 0.8rem;
+}
+
+.card.type-sombrio .energy-icon {
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Moldura da Screenshot (Sub-borda metálica) */
+.card-image-frame {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  border: 4px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  background-color: #000;
   overflow: hidden;
 }
 
-.card.holo::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("https://assets.codepen.io/13471/sparkles.gif"),
-    url("https://assets.codepen.io/13471/holo.png"),
-    linear-gradient(125deg, #ff008450 15%, #fca40040 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
-  background-position: 50% 50%;
-  background-size: 160%;
-  background-blend-mode: overlay;
-  z-index: 2;
-  filter: brightness(1) contrast(1);
-  transition: all .33s ease;
-  mix-blend-mode: color-dodge;
-  opacity: .75;
-}
-
-.card.holo:hover::after,
-.card.holo.active::after {
-  filter: brightness(1) contrast(1);
-  opacity: 1;
-}
-
-@keyframes holo-brilho {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-
-.card{
-    width: 350px;
-    height: 450px;
-    background-color: #8860C5;
-
-}
-
-.card h3{
-  
-background-image: radial-gradient(circle,rgba(142, 76, 240, 1) 0%, rgba(62, 57, 70, 1) 100%);
-text-align: center;
-}
-
-.card p {
-  color: #fff;
-}
-
-.card img{
+.card-image-frame img {
   width: 100%;
-  padding: 10px;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
 }
 
-#cards {
+.card:hover .card-image-frame img {
+  transform: scale(1.05);
+}
+
+/* Rodapé da Imagem */
+.card-image-footer {
+  background: linear-gradient(90deg, #ccc 0%, #eee 50%, #ccc 100%);
+  border: 1px solid #999;
+  border-top: none;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  text-align: center;
+  padding: 2px 0;
+  color: #333;
+  margin-bottom: 8px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-weight: bold;
+}
+
+/* Região de Ataques */
+.card-attacks-area {
+  flex: 1;
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  max-width: 1500px;
-  margin: 0 auto;
-  margin-top: 5%;
+  gap: 0.6rem;
+  padding: 0.2rem 0;
 }
 
-.card {
-  flex: 1 1 350px;
-  max-width: 350px;
-  border-radius: 15px;
+.card-attack {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+  padding-bottom: 0.4rem;
 }
 
-.info-screen, #modalTitulo, .card h3{
-    padding: 10px;
-    margin: 0px;
+.card.type-sombrio .card-attack {
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
 }
 
-.info-screen{
-  background-image: radial-gradient(circle,rgba(142, 76, 240, 1) 0%, rgba(62, 57, 70, 1) 100%);
-  margin: 10px;
-  border-radius: 15px;
+.card-attack:last-child {
+  border-bottom: none;
 }
 
-
-
-.card.fullart > img {
-  visibility: hidden;
+.attack-cost {
+  display: flex;
+  gap: 2px;
 }
 
-.card.fullart > .info-screen {
-  background-image: radial-gradient(circle, rgba(142, 76, 240, 0.6) 0%, rgba(62, 57, 70, 0.6) 100%);
+.attack-info {
+  flex: 1;
 }
 
+.attack-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1px;
+}
+
+.attack-name {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.attack-dmg {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+.attack-desc {
+  font-size: 0.72rem;
+  color: #444;
+  line-height: 1.25;
+}
+
+.card.type-sombrio .attack-desc {
+  color: #ccc;
+}
+
+/* Legenda de Descrição Inferior */
+.card-description-footer {
+  border: 2px solid #a1a1aa;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  font-style: italic;
+  border-radius: 4px;
+  margin-top: auto;
+  line-height: 1.3;
+  color: #222;
+}
+
+.card.type-sombrio .card-description-footer {
+  color: #ddd;
+  border-color: #475569;
+}
+
+/* Rodapé de Fraqueza e Resistência */
+.card-weak-resist-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  font-family: var(--font-mono);
+  margin-top: 5px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.card.type-sombrio .card-weak-resist-row {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Botão de Câmera/Download Rápido */
 .card .print-button {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.6);
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.75);
   color: white;
-  border: none;
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  transition: background-color 0.2s, transform 0.2s;
+  font-size: 16px;
+  transition: all 0.2s;
   opacity: 0; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
-
 
 .card:hover .print-button {
   opacity: 1;
 }
 
 .card .print-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--neon-purple);
   transform: scale(1.1);
+  border-color: rgba(255,255,255,0.3);
 }
 
-
+/* Estado de captura */
 .card.capturing .print-button {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Full Art Variants
+   ========================================================================== */
+.card.fullart {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-color: #f59e0b; /* Borda dourada para Full Art */
+  box-shadow: 
+    0 10px 25px rgba(0,0,0,0.5),
+    0 0 15px rgba(245, 158, 11, 0.4);
+}
+
+/* No Full Art, escondemos a moldura padrão e usamos a imagem de fundo */
+.card.fullart .card-image-frame,
+.card.fullart .card-image-footer {
   display: none;
 }
 
-
-
-
-
-
-
-
-/* o livro carossel */
-
-  *{
-    box-sizing: border-box;
-  }
-
-  .livro {
-    display: flex;
-    margin: 0;
-    
-    
-    overflow: hidden;
-    
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    padding: 1rem;
+/* Estilos de text com sombras escuras para contraste no Full Art */
+.card.fullart {
+  color: #fff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
-.container2{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5%;
-    margin-top: 5%;
+.card.fullart .energy-icon {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255,255,255,0.3);
 }
 
-
-
-#destaque {
-    max-width: max-content;
-    display: flex;
-    margin-left: 10%;
+.card.fullart .card-description-footer {
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  text-shadow: none;
 }
 
-.titulo {
-    margin-bottom: 5%;
+.card.fullart .attack-desc {
+  color: #e2e8f0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
 }
 
-.titulo h1 {
-  font-size:46px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:max-content; text-align:center;  white-space:nowrap; padding-bottom:13px; margin-bottom: 0;
-  
-}
-.titulo h1:before {
-    background-color: #8E4CF0;
-    content: '';
-    display: block;
-    height: 3px;
-    width: 120px;
-    margin-bottom: 5px;
+.card.fullart .card-attack {
+  border-bottom-color: rgba(255, 255, 255, 0.25);
 }
 
-#textoneon1{
-    color: #8E4CF0;
-    text-shadow: 0vw 0vw 1vw #8860C5, 0 0 1vw #8860C5, 0 0 1vw #8860C5, 0 0 2vw #8860C5;
-}
-
-
-.titulo img{
-    width: 350px;
-}
-
-.quadrados {
-  position: relative;
-  width: 900px;
-  height: 800px;
-}
-
-
-.quadrado {
+/* ==========================================================================
+   Holo Effects & Shimmer Animados
+   ========================================================================== */
+.card.holo::after {
+  content: '';
   position: absolute;
-  width: 70%;
-  height: 60%;
-  background-repeat: no-repeat;
-  background-size: cover;
+  inset: 0;
+  pointer-events: none;
+  background-image: 
+    url("https://assets.codepen.io/13471/sparkles.gif"),
+    url("https://assets.codepen.io/13471/holo.png"),
+    linear-gradient(125deg, #ff008430 15%, #fca40020 30%, #ffff0020 40%, #00ff8a15 60%, #00cfff20 70%, #cc4cfa30 85%);
+  background-position: 50% 50%;
+  background-size: 180%;
+  background-blend-mode: overlay;
+  z-index: 5;
+  mix-blend-mode: color-dodge;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  animation: cardSparkle 4s ease-in-out infinite;
+}
+
+.card.holo:hover::after {
+  opacity: 0.95;
+  filter: brightness(1.2) contrast(1.1);
+}
+
+/* Overlay Estático para capturar com html2canvas */
+.holo-static-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.55;
+  background: 
+    linear-gradient(120deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.1) 100%), 
+    url("https://assets.codepen.io/13471/holo.png");
+  background-blend-mode: lighten;
+  background-size: 180%;
   background-position: center;
-  box-shadow: 2px 14px 32px rgba(0,0,0,0.25);
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-radius: 12px; 
 }
 
-
-.quadrado1 {
-  left: 400px;
-  top: 100px;
-  z-index: 1;
-  background-image: url('');
+@keyframes cardSparkle {
+  0%, 100% { opacity: 0.5; background-position: 50% 50%; }
+  50% { opacity: 0.85; background-position: 70% 30%; }
 }
 
-.quadrado2 {
-  left: 0px;
-  top: 200px;
-  transform: rotate(-17.18deg);
-  z-index: 2;
-  background-image: url('');
+/* ==========================================================================
+   Modal do Personalizador (Split-Screen)
+   ========================================================================== */
+.card-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(5, 8, 15, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-out;
 }
 
-.quadrado3 {
-  left: 200px;
-  top: 0px;
-  transform: rotate(6.25deg);
-  z-index: 3;
-  background-image: url('');
+.modal-wrapper {
+  background: var(--bg-dark-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  width: 900px;
+  max-width: 95vw;
+  max-height: 92vh;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 50px rgba(142, 76, 240, 0.2);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 38px;
+  cursor: pointer;
+  z-index: 110;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close-btn:hover {
+  background: #ff5f56;
+  color: #fff;
+  border-color: transparent;
+  transform: rotate(90deg);
+}
+
+.modal-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Lado Esquerdo: Preview */
+.modal-preview-side {
+  flex: 1.1;
+  background: rgba(0, 0, 0, 0.25);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  overflow-y: auto;
+}
+
+.card-preview-container {
+  perspective: 1000px;
+}
+
+.card-ampliada {
+  transform: scale(1);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  cursor: default;
+}
+
+/* Lado Direito: Formulário */
+.modal-editor-side {
+  flex: 1.2;
+  padding: 2.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-height: 92vh;
+}
+
+.modal-editor-side h2 {
+  font-size: 1.6rem;
+  background: linear-gradient(90deg, #fff, var(--neon-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.editor-subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: -0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.editor-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.editor-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.editor-group input,
+.editor-group select,
+.editor-group textarea {
+  padding: 0.7rem 0.9rem;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.editor-group input:focus,
+.editor-group select:focus,
+.editor-group textarea:focus {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 8px rgba(0, 210, 255, 0.2);
+}
+
+.editor-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.flex-1 { flex: 1; }
+.flex-2 { flex: 2; }
+.flex-3 { flex: 3; }
+
+.editor-section-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--neon-purple);
+  margin-top: 0.5rem;
+  border-bottom: 1px solid rgba(142, 76, 240, 0.2);
+  padding-bottom: 3px;
+}
+
+.editor-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 0.5rem 0;
+}
+
+/* Custom switch toggle */
+.custom-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-toggle input {
+  opacity: 0;
+  width: 0; height: 0;
+  position: absolute;
+}
+
+.toggle-slider {
+  width: 44px;
+  height: 22px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 100px;
+  position: relative;
+  transition: background-color 0.2s;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.custom-toggle input:checked + .toggle-slider {
+  background-color: var(--neon-cyan);
+}
+
+.custom-toggle input:checked + .toggle-slider::before {
+  transform: translateX(22px);
+}
+
+.toggle-label {
+  font-size: 0.95rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Botões */
+.btn-primary {
+  width: 100%;
+  padding: 0.9rem;
+  background: var(--neon-purple);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 15px rgba(142, 76, 240, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background: #a26aff;
+  box-shadow: 0 5px 20px rgba(142, 76, 240, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Animações
+   ========================================================================== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(57, 230, 160, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(57, 230, 160, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(57, 230, 160, 0); }
 }
