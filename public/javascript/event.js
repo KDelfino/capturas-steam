@@ -8,16 +8,32 @@ let activeCardIndex = null;
 // Mapeamento de Tipos, HP e Ataques por Jogo (Banco de Dados Local)
 // ==========================================================================
 const ELEMENT_MAPPING = {
-  fogo: { emoji: "🔥", colorVar: "--color-fogo", weak: "💧", resist: "⚙️" },
-  agua: { emoji: "💧", colorVar: "--color-agua", weak: "⚡", resist: "🔥" },
-  grama: { emoji: "🌿", colorVar: "--color-grama", weak: "🔥", resist: "💧" },
-  raio: { emoji: "⚡", colorVar: "--color-raio", weak: "⚙️", resist: "🔮" },
-  psiquico: { emoji: "🔮", colorVar: "--color-psiquico", weak: "👁️", resist: "⚪" },
-  metal: { emoji: "⚙️", colorVar: "--color-metal", weak: "🔥", resist: "🌿" },
-  sombrio: { emoji: "👁️", colorVar: "--color-sombrio", weak: "🔥", resist: "🔮" },
-  dragao: { emoji: "🐉", colorVar: "--color-dragao", weak: "🔮", resist: "⚡" },
-  incolor: { emoji: "⚪", colorVar: "--color-incolor", weak: "👁️", resist: "⚙️" }
+  fogo: { type: "fogo", colorVar: "--color-fogo", weak: "agua", resist: "metal" },
+  agua: { type: "agua", colorVar: "--color-agua", weak: "raio", resist: "fogo" },
+  grama: { type: "grama", colorVar: "--color-grama", weak: "fogo", resist: "agua" },
+  raio: { type: "raio", colorVar: "--color-raio", weak: "metal", resist: "psiquico" },
+  psiquico: { type: "psiquico", colorVar: "--color-psiquico", weak: "sombrio", resist: "incolor" },
+  metal: { type: "metal", colorVar: "--color-metal", weak: "fogo", resist: "grama" },
+  sombrio: { type: "sombrio", colorVar: "--color-sombrio", weak: "fogo", resist: "psiquico" },
+  dragao: { type: "dragao", colorVar: "--color-dragao", weak: "psiquico", resist: "raio" },
+  incolor: { type: "incolor", colorVar: "--color-incolor", weak: "sombrio", resist: "metal" }
 };
+
+// Gerador de Vetores SVG de Alta Qualidade para os Tipos Pokémon (CDNs de imagens substituídas por vetores limpos)
+function getEnergyIcon(type, size = 22) {
+  const SVGS = {
+    fogo: `<svg class="energy-svg" style="width: ${size}px; height: ${size}px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#ef4444"/><path d="M12 4s-1 2.5-3 3.5c-1.5.8-2 2-2 3.5 0 2.8 2.2 5 5 5s5-2.2 5-5c0-2-1.5-3.5-2.5-4.5C13.5 5.5 12 4 12 4z" fill="#fff"/></svg>`,
+    agua: `<svg class="energy-svg" style="width: ${size}px; height: ${size}px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#3b82f6"/><path d="M12 4s-5 5.5-5 8.5c0 2.8 2.2 5 5 5s5-2.2 5-5c0-3-5-8.5-5-8.5z" fill="#fff"/></svg>`,
+    grama: `<svg class="energy-svg" style="width: ${size}px; height: ${size}px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#22c55e"/><path d="M12 4c-3.3 0-6 2.7-6 6 0 3 4 8 6 10 2-2 6-7 6-10 0-3.3-2.7-6-6-6zm-1 9c-1.7 0-3-1.3-3-3s1.3-3 3-3V13z" fill="#fff"/></svg>`,
+    raio: `<svg class="energy-svg" style="width: ${size}px; height: ${size}px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#eab308"/><path d="M13 3l-6 9h5v9l6-9h-5z" fill="#fff"/></svg>`,
+    psiquico: `<svg class="energy-svg" style="width: ${size}px; height: ${size}px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#a855f7"/><circle cx="12" cy="12" r="5" fill="#fff"/><circle cx="12" cy="12" r="2.5" fill="#a855f7"/></svg>`,
+    metal: `<svg class="energy-svg" style="width: ${size}px; height: ${size}px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#64748b"/><path d="M12 8a4 4 0 100 8 4 4 0 000-8z" fill="#fff"/></svg>`,
+    sombrio: `<svg class="energy-svg" style="width: ${size}px; height: ${size}px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#0f172a"/><path d="M10 5a7 7 0 007 7 7 7 0 01-7-7c0 3.9-3.3 7-7 7a7 7 0 007-7z" fill="#fff"/></svg>`,
+    dragao: `<svg class="energy-svg" style="width: ${size}px; height: ${size}px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#f97316"/><path d="M12 5l-2 3-3-1 2 4-4 .5 4 2.5-2 3.5 4-1 1 3.5 1-3.5 4 1-2-3.5 4-2.5-4-.5 2-4-3 1z" fill="#fff"/></svg>`,
+    incolor: `<svg class="energy-svg" style="width: ${size}px; height: ${size}px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#cbd5e1"/><path d="M12 6.5l1.6 3.2 3.6.5-2.6 2.5.6 3.6-3.2-1.7-3.2 1.7.6-3.6-2.6-2.5 3.6-.5z" fill="#71717a"/></svg>`
+  };
+  return SVGS[type] || SVGS.incolor;
+}
 
 function getGameCardTemplate(appName) {
   const name = (appName || "").toLowerCase();
@@ -283,15 +299,15 @@ function createCardHTML(cardData, forceHolo = null, forceFullArt = null) {
   let costIcons1 = '';
   let costIcons2 = '';
 
-  // Gerar custo em emojis
+  // Gerar custo em SVGs
   const costCount1 = cardData.atk1Dmg === "0" ? 1 : 2;
   const costCount2 = Math.min(4, Math.max(2, Math.ceil(parseInt(cardData.atk2Dmg || 50) / 40)));
   
   for (let i = 0; i < costCount1; i++) {
-    costIcons1 += `<span class="energy-icon">${element.emoji}</span>`;
+    costIcons1 += getEnergyIcon(cardData.type, 18);
   }
   for (let i = 0; i < costCount2; i++) {
-    costIcons2 += `<span class="energy-icon">${i === 0 ? element.emoji : '⚪'}</span>`;
+    costIcons2 += i === 0 ? getEnergyIcon(cardData.type, 18) : getEnergyIcon('incolor', 18);
   }
 
   // Estilo Inline de Fundo caso seja Full Art
@@ -307,7 +323,7 @@ function createCardHTML(cardData, forceHolo = null, forceFullArt = null) {
         <div class="card-hp-area">
           <span class="hp-label">HP</span>
           <span class="hp-num">${cardData.hp}</span>
-          <span class="energy-icon">${element.emoji}</span>
+          ${getEnergyIcon(cardData.type, 22)}
         </div>
       </div>
 
@@ -353,9 +369,9 @@ function createCardHTML(cardData, forceHolo = null, forceFullArt = null) {
 
       <!-- Rodapé Técnico -->
       <div class="card-weak-resist-row">
-        <span>Fraqueza: ${element.weak} x2</span>
-        <span>Resistência: ${element.resist} -30</span>
-        <span>Recuo: ⚪ ⚪</span>
+        <span style="display: flex; align-items: center; gap: 3px;">Fraqueza: ${getEnergyIcon(element.weak, 14)} x2</span>
+        <span style="display: flex; align-items: center; gap: 3px;">Resistência: ${getEnergyIcon(element.resist, 14)} -30</span>
+        <span style="display: flex; align-items: center; gap: 3px;">Recuo: ${getEnergyIcon('incolor', 14)} ${getEnergyIcon('incolor', 14)}</span>
       </div>
     </div>
   `;
@@ -543,6 +559,13 @@ function atualizarPreviewModal() {
   previewElement.classList.add('card-ampliada');
 
   addTiltEffect(previewElement);
+
+  // Permite abrir a imagem original limpa em uma nova aba ao clicar no card ampliado
+  previewElement.addEventListener('click', (e) => {
+    if (e.target.closest('.print-button')) return;
+    window.open(activeCardData.imageUrl, '_blank', 'noopener,noreferrer');
+  });
+
   container.appendChild(previewElement);
 }
 
@@ -599,6 +622,16 @@ function setupEditorListeners() {
         allCaptures[activeCardIndex] = { ...activeCardData };
         renderCardsList(); // Atualiza a galeria principal
         exportCardImage(previewCard, activeCardData.appName);
+      }
+    };
+  }
+
+  // Ação de abrir imagem original do editor
+  const openOriginalBtn = document.getElementById('btn-open-original');
+  if (openOriginalBtn) {
+    openOriginalBtn.onclick = () => {
+      if (activeCardData && activeCardData.imageUrl) {
+        window.open(activeCardData.imageUrl, '_blank', 'noopener,noreferrer');
       }
     };
   }

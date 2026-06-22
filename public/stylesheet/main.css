@@ -913,8 +913,9 @@ a:hover {
 
 /* No Full Art, escondemos a moldura padrão e usamos a imagem de fundo */
 .card.fullart .card-image-frame,
-.card.fullart .card-image-footer {
-  display: none;
+.card.fullart .card-image-footer,
+.card.fullart .card-attacks-area {
+  display: none !important;
 }
 
 /* Estilos de text com sombras escuras para contraste no Full Art */
@@ -1232,6 +1233,7 @@ a:hover {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .btn-primary:hover {
@@ -1242,6 +1244,53 @@ a:hover {
 
 .btn-primary:active {
   transform: translateY(0);
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 0.9rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* Vetor SVG de Energia */
+.energy-svg {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.card-hp-area .energy-svg {
+  margin-left: 2px;
+}
+
+.attack-cost {
+  display: flex;
+  gap: 3px;
+  align-items: center;
 }
 
 /* ==========================================================================
