@@ -529,11 +529,28 @@ function abrirPersonalizador(index) {
   document.getElementById('edit-descricao').value = activeCardData.description;
   document.getElementById('edit-atk1-nome').value = activeCardData.atk1Name;
   document.getElementById('edit-atk1-dmg').value = activeCardData.atk1Dmg;
+  document.getElementById('edit-atk1-desc').value = activeCardData.atk1Desc || '';
   document.getElementById('edit-atk2-nome').value = activeCardData.atk2Name;
   document.getElementById('edit-atk2-dmg').value = activeCardData.atk2Dmg;
+  document.getElementById('edit-atk2-desc').value = activeCardData.atk2Desc || '';
   
   document.getElementById('edit-holo').checked = activeCardData.isHolo;
   document.getElementById('edit-fullart').checked = activeCardData.isFullArt;
+
+  // Resetar abas ao abrir
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  const defaultTabBtn = document.querySelector('.tab-btn[data-tab="tab-geral"]');
+  if (defaultTabBtn) defaultTabBtn.classList.add('active');
+  
+  document.querySelectorAll('.tab-content').forEach(c => {
+    c.style.display = 'none';
+    c.classList.remove('active');
+  });
+  const defaultTabContent = document.getElementById('tab-geral');
+  if (defaultTabContent) {
+    defaultTabContent.style.display = 'flex';
+    defaultTabContent.classList.add('active');
+  }
 
   // Atualizar preview
   atualizarPreviewModal();
@@ -580,8 +597,10 @@ function setupEditorListeners() {
     { id: 'edit-descricao', prop: 'description' },
     { id: 'edit-atk1-nome', prop: 'atk1Name' },
     { id: 'edit-atk1-dmg', prop: 'atk1Dmg' },
+    { id: 'edit-atk1-desc', prop: 'atk1Desc' },
     { id: 'edit-atk2-nome', prop: 'atk2Name' },
-    { id: 'edit-atk2-dmg', prop: 'atk2Dmg' }
+    { id: 'edit-atk2-dmg', prop: 'atk2Dmg' },
+    { id: 'edit-atk2-desc', prop: 'atk2Desc' }
   ];
 
   inputs.forEach(item => {
@@ -637,6 +656,27 @@ function setupEditorListeners() {
       }
     };
   }
+
+  // Configurar Cliques de Alternância das Abas
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(btn => {
+    btn.onclick = () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      const tabId = btn.getAttribute('data-tab');
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.style.display = 'none';
+        content.classList.remove('active');
+      });
+      
+      const activeTab = document.getElementById(tabId);
+      if (activeTab) {
+        activeTab.style.display = 'flex';
+        activeTab.classList.add('active');
+      }
+    };
+  });
 }
 
 // ==========================================================================
