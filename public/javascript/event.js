@@ -315,7 +315,9 @@ function createCardHTML(cardData, forceHolo = null, forceFullArt = null) {
 
   return `
     <div class="${cardClass}" data-index="${cardData.index}" ${inlineBg}>
-      <button class="print-button" title="Baixar Card como Imagem">📸</button>
+      <button class="print-button" title="Baixar Card como Imagem">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="display: block;"><path d="M4 4h3l2-2h6l2 2h3a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm8 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/></svg>
+      </button>
       
       <!-- Cabeçalho do Card -->
       <div class="card-header-row">

@@ -1014,7 +1014,8 @@ a:hover {
   border-radius: 24px;
   width: 900px;
   max-width: 95vw;
-  max-height: 92vh;
+  height: 620px; /* Fixed height on desktop to prevent scrollbars */
+  max-height: 95vh;
   box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 50px rgba(142, 76, 240, 0.2);
   position: relative;
   overflow: hidden;
@@ -1081,12 +1082,12 @@ a:hover {
 /* Lado Direito: Formulário */
 .modal-editor-side {
   flex: 1.2;
-  padding: 2.5rem;
-  overflow-y: auto;
+  padding: 1.5rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  max-height: 92vh;
+  gap: 0.65rem; /* Highly compact gaps */
+  height: 100%;
+  overflow-y: hidden; /* Prevent vertical scrollbar on standard desktop screen sizes */
 }
 
 .modal-editor-side h2 {
@@ -1121,15 +1122,20 @@ a:hover {
 .editor-group input,
 .editor-group select,
 .editor-group textarea {
-  padding: 0.7rem 0.9rem;
+  padding: 0.45rem 0.75rem; /* Highly compact padding */
   background: rgba(0,0,0,0.3);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 8px;
   color: #fff;
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 0.9rem; /* Sized down for compactness */
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.editor-group textarea {
+  height: 48px; /* Limit height of textarea */
+  resize: none;
 }
 
 .editor-group input:focus,
@@ -1150,18 +1156,18 @@ a:hover {
 
 .editor-section-title {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--neon-purple);
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
   border-bottom: 1px solid rgba(142, 76, 240, 0.2);
-  padding-bottom: 3px;
+  padding-bottom: 2px;
 }
 
 .editor-checkboxes {
   display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  margin: 0.5rem 0;
+  flex-direction: row; /* Horizontal checkboxes layout to save space */
+  gap: 1.5rem;
+  margin: 0.2rem 0;
 }
 
 /* Custom switch toggle */
@@ -1216,24 +1222,34 @@ a:hover {
 }
 
 /* Botões */
-.btn-primary {
+.editor-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
   width: 100%;
-  padding: 0.9rem;
-  background: var(--neon-purple);
-  color: #fff;
-  border: none;
+}
+
+.btn-primary, .btn-secondary {
+  flex: 1;
+  padding: 0.7rem;
   border-radius: 10px;
   font-family: var(--font-mono);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 15px rgba(142, 76, 240, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: none;
+}
+
+.btn-primary {
+  background: var(--neon-purple);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(142, 76, 240, 0.3);
 }
 
 .btn-primary:hover {
@@ -1247,21 +1263,9 @@ a:hover {
 }
 
 .btn-secondary {
-  width: 100%;
-  padding: 0.9rem;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
-  border-radius: 10px;
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
 }
 
 .btn-secondary:hover {
@@ -1305,4 +1309,14 @@ a:hover {
   0% { box-shadow: 0 0 0 0 rgba(57, 230, 160, 0.7); }
   70% { box-shadow: 0 0 0 6px rgba(57, 230, 160, 0); }
   100% { box-shadow: 0 0 0 0 rgba(57, 230, 160, 0); }
+}
+
+@media (max-height: 700px) and (min-width: 901px) {
+  .modal-wrapper {
+    height: 95vh;
+  }
+  .modal-editor-side {
+    overflow-y: auto; /* Fallback scrollbar only for small heights on desktop */
+    padding-right: 1.5rem; /* extra space for the scrollbar */
+  }
 }
